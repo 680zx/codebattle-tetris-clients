@@ -19,6 +19,7 @@
  * <http://www.gnu.org/licenses/gpl-3.0.html>.
  * #L%
  */
+using System;
 using System.Collections.Generic;
 
 namespace TetrisClient
@@ -52,10 +53,21 @@ namespace TetrisClient
 			chained._commandChain.AddRange(command._commandChain);
 			return chained;
 		}
+		
+		public Command Then(Command command, int repeat)
+		{
+			var chained = new Command();
+			chained._commandChain.AddRange(_commandChain);
+			for (int i = 0; i != repeat; i++)
+				chained._commandChain.AddRange(command._commandChain);
+
+			return chained;
+		}
 
 		public override string ToString()
 		{
 			return string.Join(",", _commandChain);
 		}
+
 	}
 }

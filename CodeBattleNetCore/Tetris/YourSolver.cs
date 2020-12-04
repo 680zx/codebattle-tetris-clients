@@ -54,16 +54,22 @@ namespace TetrisClient
 		{
 			// Код писать сюда!
 
-			/*
-			foreach (var point in GetPointsAtMinLayer(board, GetMinLayerByYcoord(board)))
-				Console.WriteLine(point.ToString());
-			*/
-
-			var currentAvailableCells = GetFreePointsAtZeroLayer(board);
 			
-			if (Element.YELLOW && 
-				()
-				)
+			foreach (var point in GetFreePointsAtZeroLayer(board))
+				Console.WriteLine(point.ToString());
+			
+			
+			var currentAvailablePoints = GetFreePointsAtZeroLayer(board);
+			Command direction;
+			
+			if (board.GetCurrentFigureType() == Element.YELLOW)
+            {
+				int dx = board.GetCurrentFigurePoint().X - currentAvailablePoints[0].X;
+				direction = dx < 0 ? Command.RIGHT : Command.LEFT;
+				dx = Math.Abs(dx);
+
+				return Command.DUMMY.Then(direction, dx).Then(Command.DOWN);
+            }
 
 
 
@@ -79,32 +85,36 @@ namespace TetrisClient
 			
 		} 
 
-		private int GetMinLayerByYcoord(Board board)
-        {
-			var availableCells = board.GetFreeSpace();
-
-			int minLayer = byte.MaxValue;
-
-			for (int i = 0; i < availableCells.Count; i++)
-            {
-				if (availableCells[i].Y < minLayer)
-					minLayer = availableCells[i].Y;
-            }
-
-			return minLayer;
-        }
+		
 
 		private List<Point> GetFreePointsAtZeroLayer(Board board)
         {
-			var availableCells = board.GetFreeSpace();
+			var availablePoints = board.GetFreeSpace();
 
-			var selectedCells = (from point in availableCells
+			var selectedPoints = (from point in availablePoints
 								where point.Y == 0
 								select point).ToList();
 
-			return selectedCells;
+			return selectedPoints;
         }
 
+
+		//Переделать логику -> нужно, чтобы метод искал минимальный уровень, который можно 
+		//достичь с текущей фигурой
+		private int GetMinLayerByYcoord(Board board)
+		{
+			var availablePoints = board.GetFreeSpace();
+
+			int minLayer = byte.MaxValue;
+
+			for (int i = 0; i < availablePoints.Count; i++)
+			{
+				if (availablePoints[i].Y < minLayer)
+					minLayer = availablePoints[i].Y;
+			}
+
+			return minLayer;
+		}
 
 
 		#region Эти методы не работают
