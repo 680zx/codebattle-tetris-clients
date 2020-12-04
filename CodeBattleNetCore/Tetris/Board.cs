@@ -328,7 +328,7 @@ namespace TetrisClient
 		public Point GetCurrentFigurePoint()
 		{
 			return RawBoard.CurrentFigurePoint;
-		}
+		}   
 
 		/// <summary>
 		/// Получить следующие фигуры

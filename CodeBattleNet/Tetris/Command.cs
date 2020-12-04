@@ -27,7 +27,8 @@ namespace TetrisClient
 	{
 		public static readonly Command LEFT = new Command("LEFT");
 		public static readonly Command RIGHT = new Command("RIGHT");
-		public static readonly Command DOWN = new Command("DOWN");
+		public static readonly Command DOWN = new Command("D0WN");
+		public static readonly Command DAfa = new Command("Dafa");
 		public static readonly Command ROTATE_CLOCKWISE_90 = new Command("ACT");
 		public static readonly Command ROTATE_CLOCKWISE_180 = new Command("ACT(2)");
 		public static readonly Command ROTATE_CLOCKWISE_270 = new Command("ACT(3)");

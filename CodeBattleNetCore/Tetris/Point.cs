@@ -23,7 +23,7 @@ using System;
 
 namespace TetrisClient
 {
-	public struct Point
+	public struct Point : IComparable
 	{
 		public readonly int X;
 		public readonly int Y;
@@ -128,5 +128,11 @@ namespace TetrisClient
 		{
 			return (X.GetHashCode() ^ Y.GetHashCode());
 		}
-	}
+
+        public int CompareTo(object obj)
+        {
+			//obj =
+            return Y.CompareTo(obj);
+        }
+    }
 }

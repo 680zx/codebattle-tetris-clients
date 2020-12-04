@@ -20,6 +20,10 @@
  * #L%
  */
 
+using System;
+using System.Collections.Generic;
+using System.Linq;
+
 namespace TetrisClient
 {
 	/// <summary>
@@ -35,16 +39,98 @@ namespace TetrisClient
 		/// <summary>
 		/// Этот метод вызывается каждый игровой тик
 		/// </summary>
+		/// 
+		/*
+		 	BLUE =   (short)'I',
+			CYAN =   (short)'J',
+			ORANGE = (short)'L',
+			YELLOW = (short)'O',
+			GREEN =  (short)'S',
+			PURPLE = (short)'T',
+			RED =    (short)'Z',
+			NONE =   (short)'.',
+		 */
 		protected internal override Command Get(Board board)
 		{
 			// Код писать сюда!
-			return Command.DOWN;
+		
+			var availableCells = board.GetFreeSpace();
+
+			foreach (var point in GetPointsAtMinLayer(board, GetMinLayerByYcoord(board)))
+				Console.WriteLine(point.ToString());
+
+			return Command.DUMMY;
+
 
 			// Команды можно комбинировать
-			/*
-			return Command.DOWN
-				.Then(Command.SUICIDE);
-			*/
-		}
-	}
+			
+			
+			//return Command.DOWN
+				//.Then(Command.LEFT);
+			
+		} 
+
+		private int GetMinLayerByYcoord(Board board)
+        {
+			var availableCells = board.GetFreeSpace();
+
+			int minLayer = byte.MaxValue;
+
+			for (int i = 0; i < availableCells.Count; i++)
+            {
+				if (availableCells[i].Y < minLayer)
+					minLayer = availableCells[i].Y;
+            }
+
+			return minLayer;
+        }
+
+		private List<Point> GetPointsAtMinLayer(Board board, int LayerYCoord)
+        {
+			var availableCells = board.GetFreeSpace();
+
+			List<Point> selectedCells = new List<Point>();
+
+			selectedCells = (from point in availableCells
+							where point.Y == LayerYCoord
+							select point).ToList();
+
+			return selectedCells;
+        }
+
+
+
+		#region Эти методы не работают
+
+		private List<Point> GetAvailbaleCellsByXcoordCurrentYLayer(Board board, int minLayerYCoord)
+        {
+			List<Point> XPoints = new List<Point>();
+
+			for (int i = 0; i < 18; i++)
+            {
+				
+            }
+
+			return XPoints;
+        }
+
+
+
+		private List<Point> minPointsByYcoord(Board board)
+        {
+			var points = board.GetFreeSpace();
+
+			List<Point> minPoints = new List<Point>();
+
+			Array.Sort(points.ToArray());
+
+			foreach (var point in points)
+				Console.WriteLine(point.ToString());
+
+			return minPoints;
+
+        }
+
+        #endregion
+    }
 }

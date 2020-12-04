@@ -47,6 +47,8 @@ namespace TetrisClient
 		/// </summary>
 		public bool ShouldExit { get; protected set; }
 
+		public bool ShowCoordinates { get; set; } = false;
+
 		public void Play()
 		{
 			string url = GetWebSocketUrl(this.ServerUrl);
@@ -77,6 +79,13 @@ namespace TetrisClient
 						var action = Get(board);
 
 						Console.WriteLine("Answer: " + action);
+
+						//Тестовый вывод координат
+						if (ShowCoordinates)
+							foreach (var figure in board.Get(Element.YELLOW))
+								Console.WriteLine(figure.ToString());
+
+
 						Console.SetCursorPosition(0, 0);
 
 						socket.Send(action.ToString());
