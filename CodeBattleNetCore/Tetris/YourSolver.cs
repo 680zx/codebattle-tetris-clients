@@ -53,11 +53,20 @@ namespace TetrisClient
 		protected internal override Command Get(Board board)
 		{
 			// Код писать сюда!
-		
-			var availableCells = board.GetFreeSpace();
 
+			/*
 			foreach (var point in GetPointsAtMinLayer(board, GetMinLayerByYcoord(board)))
 				Console.WriteLine(point.ToString());
+			*/
+
+			var currentAvailableCells = GetFreePointsAtZeroLayer(board);
+			
+			if (Element.YELLOW && 
+				()
+				)
+
+
+
 
 			return Command.DUMMY;
 
@@ -85,15 +94,13 @@ namespace TetrisClient
 			return minLayer;
         }
 
-		private List<Point> GetPointsAtMinLayer(Board board, int LayerYCoord)
+		private List<Point> GetFreePointsAtZeroLayer(Board board)
         {
 			var availableCells = board.GetFreeSpace();
 
-			List<Point> selectedCells = new List<Point>();
-
-			selectedCells = (from point in availableCells
-							where point.Y == LayerYCoord
-							select point).ToList();
+			var selectedCells = (from point in availableCells
+								where point.Y == 0
+								select point).ToList();
 
 			return selectedCells;
         }
