@@ -29,7 +29,6 @@ namespace TetrisClient
 		public static readonly Command LEFT = new Command("LEFT");
 		public static readonly Command RIGHT = new Command("RIGHT");
 		public static readonly Command DOWN = new Command("DOWN");
-		public static readonly Command DUMMY = new Command("DUMMY");
 		public static readonly Command ROTATE_CLOCKWISE_90 = new Command("ACT");
 		public static readonly Command ROTATE_CLOCKWISE_180 = new Command("ACT(2)");
 		public static readonly Command ROTATE_CLOCKWISE_270 = new Command("ACT(3)");
@@ -44,6 +43,12 @@ namespace TetrisClient
 
 		private Command()
 		{
+		}
+
+		public Command(Command command, int repeat)
+        {
+			for (int i = 0; i != repeat; i++)
+				_commandChain.AddRange(command._commandChain);
 		}
 
 		public Command Then(Command command)

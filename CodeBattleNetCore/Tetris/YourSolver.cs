@@ -53,7 +53,6 @@ namespace TetrisClient
 		protected internal override Command Get(Board board)
 		{
 			// Код писать сюда!
-
 			
 			foreach (var point in GetFreePointsAtZeroLayer(board))
 				Console.WriteLine(point.ToString());
@@ -68,7 +67,7 @@ namespace TetrisClient
 				direction = dx < 0 ? Command.RIGHT : Command.LEFT;
 				dx = Math.Abs(dx);
 
-				return Command.DUMMY.Then(direction, dx).Then(Command.DOWN);
+				return new Command(direction, dx).Then(Command.DOWN);
             }
 
 
