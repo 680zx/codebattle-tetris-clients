@@ -61,13 +61,48 @@ namespace TetrisClient
 			var currentAvailablePoints = GetFreePointsAtZeroLayer(board);
 			Command direction;
 			
-			if (board.GetCurrentFigureType() == Element.YELLOW)
+			if (board.GetCurrentFigureType() == Element.YELLOW && currentAvailablePoints.Count % 2 == 0)
             {
 				int dx = board.GetCurrentFigurePoint().X - currentAvailablePoints[0].X;
 				direction = dx < 0 ? Command.RIGHT : Command.LEFT;
 				dx = Math.Abs(dx);
 
 				return new Command(direction, dx).Then(Command.DOWN);
+            }
+
+			else if (board.GetCurrentFigureType() == Element.YELLOW)
+            {
+				
+            }
+
+			if (board.GetCurrentFigureType() == Element.BLUE)
+            {
+				if (currentAvailablePoints.Count == 1)
+                {
+					int dx = board.GetCurrentFigurePoint().X - currentAvailablePoints[0].X;
+					direction = dx < 0 ? Command.RIGHT : Command.LEFT;
+					dx = Math.Abs(dx);
+
+					return new Command(direction, dx).Then(Command.DOWN);
+                }
+
+				else if (currentAvailablePoints.Count == 2 && board.GetFutureFigures()[0] == Element.BLUE)
+                {
+					int dx = board.GetCurrentFigurePoint().X - currentAvailablePoints[0].X;
+					direction = dx < 0 ? Command.RIGHT : Command.LEFT;
+					dx = Math.Abs(dx);
+
+					return new Command(direction, dx).Then(Command.DOWN);
+				}
+
+                else
+                {
+					int dx = board.GetCurrentFigurePoint().X - currentAvailablePoints[0].X;
+					direction = dx < 0 ? Command.RIGHT : Command.LEFT;
+					dx = Math.Abs(dx);
+
+					return new Command(direction, dx).Then(Command.DOWN);
+				}
             }
 
 
